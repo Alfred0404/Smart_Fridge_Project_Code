@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <h1 class="text-xl">Recipes</h1>
+    <nav></nav>
+        <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/food_list">food list</a></li>
+            <li><a href="#">recipes</a></li>
+        </ul>
+    </nav>
+    <section></section>
+        <div class="recipes-list-container">
+            <ul>
+                {% for recipe in recipes_list %}
+                {% if recipe %}
+                <li class="recipe">
+                    {% for key, value in recipe.items() %}
+                    <p class="recipe-info" id="{{key}}">{{key}}: {{value}}</p>
+                    {% endfor %}
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+</body>
+</html>
