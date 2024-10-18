@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-from handle_ollama_interactions import get_recipes
+from main import get_recipes
 
 
 @app.route("/")
