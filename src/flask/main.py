@@ -26,4 +26,4 @@ if __name__ == "__main__":
         Ingredient("onion", "1"),
         Ingredient("carrot", "1"),
     ]
-    get_recipes(ingredients=food_list, limit=3)
+    print(get_recipes(ingredients=food_list, limit=3))
