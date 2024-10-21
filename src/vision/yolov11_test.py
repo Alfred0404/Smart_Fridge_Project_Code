@@ -1,60 +1,81 @@
-from ultralytics import YOLO
-import cv2
 import os
 
+import cv2
+from ultralytics import YOLO
+from yolo_utils import *
 
-def calculate_center(x1, y1, x2, y2):
-    return (x1 + x2) / 2, (y1 + y2) / 2
-
-
-def is_moving_forward(center_1, center_2):
-    # check if an item is moving forward (from top to bottom)
-    _, y1 = center_1
-    _, y2 = center_2
-
-    return True if y1 < y2 else False
+# CONSTANTS
+WORKING_DIR = os.getcwd()
+CONFIDENCE = 0.4
 
 
-def destroy(cap):
-    cap.release()
+def destroy(video_capture: cv2.VideoCapture) -> None:
+    video_capture.release()
     cv2.destroyAllWindows()
 
 
-def test_yolov11(model):
-    cap = cv2.VideoCapture(0)
+def detect_items_in_frame(frame: cv2.Mat, model: YOLO) -> list:
+    """
+    Detect items in a frame using a YOLO model.
 
-    while cap.isOpened():
-        ret, frame = cap.read()
-        if not ret:
-            break
+    Args:
+        frame (cv2.Mat): The frame to detect items in.
+        model (YOLO): The YOLO model to use for detection.
 
-        results = model.predict(source=frame, conf=0.4, show=False)
+    Returns:
+        list: A list of Results objects containing the detected items.
+    """
+    results = model.predict(source=frame, conf=CONFIDENCE, show=False)
+    return results
 
-        for result in results:
-            for box in result.boxes:
-                x1, y1, x2, y2 = box.xyxy[0]
-                x_center, y_center = calculate_center(x1, y1, x2, y2)
-                cv2.circle(frame, (int(x_center), int(y_center)), 3, (0, 255, 0), -1)
-                cv2.putText(
-                    frame,
-                    f"{int(x_center)},{int(y_center)}",
-                    (int(x_center), int(y_center)),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.5,
-                    (0, 255, 0),
-                    1,
-                )
 
-        cv2.imshow("YOLOv11 Detection", results[0].plot())
+def process_frame(frame: cv2.Mat, results: list) -> None:
+    """
+    Process a frame by drawing the centers of the bounding boxes on the frame.
 
-        if cv2.waitKey(1) & 0xFF == ord("q"):
-            break
+    Args:
+        frame (cv2.Mat): The frame to process.
+        results (list): The results of the YOLOv11 detection.
+    """
+    for result in results:
+        for box in result.boxes:
+            center = calculate_center(*box.xyxy[0])
+            show_center(frame, center)
 
-    destroy(cap)
+
+def run_yolov11_detection(model: YOLO) -> None:
+    """
+    Run YOLOv11 detection on frames from a camera.
+
+    @param model: YOLO model
+    @return: None
+    """
+
+    video_capture = cv2.VideoCapture(0)
+
+    try:
+        while video_capture.isOpened():
+            ret, frame = video_capture.read()
+            if not ret:
+                break
+
+            results = detect_items_in_frame(frame, model)
+            process_frame(frame, results)
+
+            cv2.imshow("YOLOv11 Detection", results[0].plot())
+
+            if cv2.waitKey(1) & 0xFF == ord("q"):
+                break
+
+    except Exception as e:
+        print(f"[run_yolov11_detection]\tError: {e}")
+
+    finally:
+        destroy(video_capture)
 
 
 if __name__ == "__main__":
-    working_dir = os.getcwd().replace("\\", "\\\\")
-    yolo_model_path = f"{working_dir}\\src\\vision\\models\\yolo11n.pt"
+    yolo_model_path = os.path.join(WORKING_DIR, "src", "vision", "models", "yolo11n.pt")
     model = YOLO(yolo_model_path)
-    test_yolov11(model)
+
+    run_yolov11_detection(model)
