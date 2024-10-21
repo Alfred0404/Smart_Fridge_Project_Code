@@ -2,16 +2,12 @@ import os
 
 import cv2
 from ultralytics import YOLO
-from yolo_utils import *
+from utils.video_utils import *
+from utils.detection_utils import *
 
 # CONSTANTS
 WORKING_DIR = os.getcwd()
 CONFIDENCE = 0.4
-
-
-def destroy(video_capture: cv2.VideoCapture) -> None:
-    video_capture.release()
-    cv2.destroyAllWindows()
 
 
 def detect_items_in_frame(frame: cv2.Mat, model: YOLO) -> list:
@@ -29,20 +25,6 @@ def detect_items_in_frame(frame: cv2.Mat, model: YOLO) -> list:
     return results
 
 
-def process_frame(frame: cv2.Mat, results: list) -> None:
-    """
-    Process a frame by drawing the centers of the bounding boxes on the frame.
-
-    Args:
-        frame (cv2.Mat): The frame to process.
-        results (list): The results of the YOLOv11 detection.
-    """
-    for result in results:
-        for box in result.boxes:
-            center = calculate_center(*box.xyxy[0])
-            show_center(frame, center)
-
-
 def run_yolov11_detection(model: YOLO) -> None:
     """
     Run YOLOv11 detection on frames from a camera.
@@ -53,11 +35,12 @@ def run_yolov11_detection(model: YOLO) -> None:
 
     video_capture = cv2.VideoCapture(0)
 
+    if not video_capture.isOpened():
+        raise RuntimeError("Impossible d'ouvrir la camera")
+
     try:
         while video_capture.isOpened():
-            ret, frame = video_capture.read()
-            if not ret:
-                break
+            frame = capture_frame(video_capture)
 
             results = detect_items_in_frame(frame, model)
             process_frame(frame, results)

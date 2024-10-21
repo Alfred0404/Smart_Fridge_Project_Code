@@ -32,3 +32,17 @@ def show_center(frame: cv2.Mat, center: tuple[float, float]) -> None:
         (0, 255, 0),
         1,
     )
+
+
+def process_frame(frame: cv2.Mat, results: list) -> None:
+    """
+    Process a frame by drawing the centers of the bounding boxes on the frame.
+
+    Args:
+        frame (cv2.Mat): The frame to process.
+        results (list): The results of the YOLOv11 detection.
+    """
+    for result in results:
+        for box in result.boxes:
+            center = calculate_center(*box.xyxy[0])
+            show_center(frame, center)
