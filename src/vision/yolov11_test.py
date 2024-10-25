@@ -1,34 +1,13 @@
 import logging
-import os
 
 import cv2
-import torch
 from ultralytics import YOLO
+from utils.config import *
 from utils.detection_utils import *
 from utils.video_utils import *
+from utils.yolo_utils import *
 
-logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
-
-# CONSTANTS
-WORKING_DIR = os.getcwd()
-CONFIDENCE = 0.4
-EXIT_KEY = ord("q")
-
-
-def train_model(model: YOLO, dataset_path: str, epochs: int) -> YOLO:
-    """
-    Train a YOLO model.
-
-    @return: YOLO model
-    """
-    model.train(
-        data=dataset_path,
-        epochs=epochs,
-        batch=8,
-        imgsz=640,
-        device=0,
-    )
-    return model
+logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.INFO)
 
 
 def detect_items_in_frame(frame: cv2.Mat, model: YOLO) -> list:
@@ -79,9 +58,5 @@ def run_yolov11_detection(model: YOLO) -> None:
 
 
 if __name__ == "__main__":
-    yolo_model_path = os.path.join(WORKING_DIR, "src", "vision", "models", "yolo11n.pt")
-    yolo_dataset_path = os.path.join(WORKING_DIR, "src", "vision", "dataset", "data.yaml")
-    model = YOLO(yolo_model_path)
-    model = train_model(model, yolo_dataset_path, 100)
-
+    model = get_model()
     run_yolov11_detection(model)
