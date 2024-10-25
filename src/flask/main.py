@@ -1,7 +1,6 @@
 import sys
 import os
 
-# Ajoute dynamiquement le chemin du dossier parent 'src/' au sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 print(sys.path)
