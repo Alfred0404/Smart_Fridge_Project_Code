@@ -11,8 +11,6 @@ def get_model() -> YOLO:
     @return: YOLO model
     """
     if os.path.exists(TRAINED_MODEL_PATH):
-        model = YOLO(TRAINED_MODEL_PATH)
-
-        return model
+        return YOLO(TRAINED_MODEL_PATH)
 
     return YOLO(UNTRAINED_MODEL_PATH)

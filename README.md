@@ -24,13 +24,44 @@ You need [Python &gt;3.11](https://www.python.org/downloads/) and some dependenc
 pip install opencv-python ollama Flask ultralytics easyocr
 ```
 
-## Dataset
-
-To train the Yolov11n model, a [dataset containing fridge](https://universe.roboflow.com/fridge-6oahv/fridge-vstlk) items has been used.
-
 ## Training
 
+The model was trained using a [custom dataset](https://app.roboflow.com/fridgeinventorydetection/fridge_inventory_detection/1). Images come from our personnal fridge, and Google Image.
+Every image has been labeled by hand.
 
+
+Here's some stats about the model so far:
+
+<figure style="text-align: left;">
+  <p style="font-family: arial; margin: 0;">Confusion matrix normalized</p>
+  <img src="runs/detect/train2/confusion_matrix_normalized.png" alt="predictions on validation data" width="400"/>
+</figure>
+
+<figure style="text-align: left;">
+  <p style="font-family: arial; margin: 0;">Global metrics</p>
+  <img src="runs/detect/train2/results.png" alt="predictions on validation data" width="400"/>
+</figure>
+
+<figure style="text-align: left;">
+  <p style="font-family: arial; margin: 0;">Predictions on validation data</p>
+  <img src="runs/detect/train2/val_batch1_pred.jpg" alt="predictions on validation data" width="400"/>
+</figure>
+
+It's only a first training test, which is very conclusive and reinforces the idea of continuing along this path.
+There is still a lot to do.
+
+### Cuda
+
+Cuda has accelerated the learning process, enabling tensorflow to use the Nvidia GPU to compute the learning data.
+* Install dependencies by generating your command [here](https://pytorch.org/get-started/locally/), you should get something like that:
+  `pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118`
+* Check if cuda is properly downloaded
+  ```python
+  >>> import torch
+  >>> torch.cuda.is_available()
+  True
+  ```
+* If you're struggling, this [stackoverflow discussion](https://stackoverflow.com/questions/57814535/assertionerror-torch-not-compiled-with-cuda-enabled-in-spite-upgrading-to-cud) helped get it to work.
 
 ## Authors
 
