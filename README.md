@@ -34,17 +34,17 @@ Here's some stats about the model so far:
 
 <figure style="text-align: left;">
   <p style="font-family: arial; margin: 0;">Confusion matrix normalized</p>
-  <img src="runs/detect/train2/confusion_matrix_normalized.png" alt="predictions on validation data" width="400"/>
+  <img src="runs/detect/train/confusion_matrix_normalized.png" alt="predictions on validation data" width="400"/>
 </figure>
 
 <figure style="text-align: left;">
   <p style="font-family: arial; margin: 0;">Global metrics</p>
-  <img src="runs/detect/train2/results.png" alt="predictions on validation data" width="400"/>
+  <img src="runs/detect/train/results.png" alt="predictions on validation data" width="400"/>
 </figure>
 
 <figure style="text-align: left;">
   <p style="font-family: arial; margin: 0;">Predictions on validation data</p>
-  <img src="runs/detect/train2/val_batch1_pred.jpg" alt="predictions on validation data" width="400"/>
+  <img src="runs/detect/train/val_batch1_pred.jpg" alt="predictions on validation data" width="400"/>
 </figure>
 
 It's only a first training test, which is very conclusive and reinforces the idea of continuing along this path.
@@ -74,21 +74,6 @@ See the list of [contributors](https://github.com/Alfred0404/Smart_Fridge_Projec
 
 # References
 
-```
-@software{yolo11_ultralytics,
-  author = {Glenn Jocher and Jing Qiu},
-  title = {Ultralytics YOLO11},
-  version = {11.0.0},
-  year = {2024},
-  url = {https://github.com/ultralytics/ultralytics},
-  orcid = {0000-0001-5950-6979, 0000-0002-7603-6750, 0000-0003-3783-7069},
-  license = {AGPL-3.0}
-}
+Jocher, G., & Qiu, J. (2024). Ultralytics YOLO11 (11.0.0) [Computer software]. https://github.com/ultralytics/ultralytics.
 
-@article{OpenImages,
-  author = {Alina Kuznetsova and Hassan Rom and Neil Alldrin and Jasper Uijlings and Ivan Krasin and Jordi Pont-Tuset and Shahab Kamali and Stefan Popov and Matteo Malloci and Alexander Kolesnikov and Tom Duerig and Vittorio Ferrari},
-  title = {The Open Images Dataset V4: Unified image classification, object detection, and visual relationship detection at scale},
-  year = {2020},
-  journal = {IJCV}
-}
-```
+Kuznetsova, A., Rom, H., Alldrin, N., Uijlings, J., Krasin, I., Pont-Tuset, J., Kamali, S., Popov, S., Malloci, M., Kolesnikov, A., Duerig, T., & Ferrari, V. (2020). The Open Images Dataset V4: Unified image classification, object detection, and visual relationship detection at scale. IJCV.

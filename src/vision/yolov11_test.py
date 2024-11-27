@@ -21,8 +21,8 @@ def detect_items_in_frame(frame: cv2.Mat, model: YOLO) -> list:
     Returns:
         list: A list of Results objects containing the detected items.
     """
-    results = model.track(source=frame, conf=CONFIDENCE, show=False)
-    return results
+    items_detected = model.track(source=frame, conf=CONFIDENCE, show=False)
+    return items_detected
 
 
 def run_yolov11_detection(model: YOLO) -> None:
@@ -42,10 +42,10 @@ def run_yolov11_detection(model: YOLO) -> None:
         while video_capture.isOpened():
             frame = capture_frame(video_capture)
 
-            results = detect_items_in_frame(frame, model)
-            process_frame(frame, results)
+            items_detected = detect_items_in_frame(frame, model)
+            process_frame(frame, items_detected)
 
-            cv2.imshow("YOLOv11 Detection", results[0].plot())
+            cv2.imshow("YOLOv11 Detection", items_detected[0].plot())
 
             if cv2.waitKey(1) & 0xFF == EXIT_KEY:
                 break
@@ -60,3 +60,12 @@ def run_yolov11_detection(model: YOLO) -> None:
 if __name__ == "__main__":
     model = get_model()
     run_yolov11_detection(model)
+
+
+"""
+items to train the model on:
+- milk
+- vegetables (tomatoes, epinards, carrots, onions, lettuce, etc.)
+- sauces (mayonnaise, bbq, etc.)
+- sausages
+"""
