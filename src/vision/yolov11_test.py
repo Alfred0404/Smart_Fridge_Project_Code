@@ -44,8 +44,13 @@ def run_yolov11_detection(model: YOLO) -> None:
             frame = capture_frame(video_capture)
 
             items_detected = detect_items_in_frame(frame, model)
-            process_frame(frame, items_detected)
-            update_fridge_items(items_detected)  # update fridge items list
+            center_history = process_frame(frame, items_detected)
+            print("updating fridge items...")
+
+            try:
+                update_fridge_items(frame, items_detected, center_history)
+            except json.JSONDecodeError as e:
+                print(f"[run_yolov11_detection]\tError: {e}")
 
             cv2.imshow("YOLOv11 Detection", items_detected[0].plot())
 

@@ -1,5 +1,7 @@
 import json
 
+import cv2
+
 
 def read_json_file(file_path: str):
     with open(file_path, "r") as f:
@@ -7,25 +9,25 @@ def read_json_file(file_path: str):
     return json_object
 
 
-def update_fridge_items(detections: list) -> None:
+def update_fridge_items(frame: cv2.Mat, detections: list, center_history: list) -> None:
     """
-    Update the contents of the fridge based on the latest detections.
-
+    Update the contents of the fridge based on the unique detections.
     Args:
         detections (list): A list of Results objects from the YOLOv11 model.
     """
     try:
         with open("src/vision/utils/items_in_fridge.json", "r") as file:
-            fridge_items = json.load(file)
+            fridge_items = set(json.load(file))
     except FileNotFoundError:
-        fridge_items = {}
+        print(
+            "[update_fridge_items]\tFridge items file not found. Creating a new one..."
+        )
+        fridge_items = set()
 
     for detection in detections:
         for box in detection.boxes:
             item_name = detection.names[box.cls.item()]
-            fridge_items[item_name] = fridge_items.get(item_name, 0) + 1
-
-    print(f"[update_fridge_items]\tUpdated fridge items: {fridge_items}")
+            fridge_items.add(item_name)
 
     with open("src/vision/utils/items_in_fridge.json", "w") as file:
-        json.dump(fridge_items, file)
+        json.dump(list(fridge_items), file)
