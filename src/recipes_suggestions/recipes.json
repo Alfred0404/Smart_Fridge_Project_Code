@@ -1,0 +1,141 @@
+[
+  {
+    "name": "",
+    "steps": [
+      {
+        "number": 1,
+        "step": "Melt chocolate in the top of a double boiler or in the microwave, then stir in peanut butter.",
+        "ingredients": [
+          {
+            "id": 16098,
+            "name": "peanut butter",
+            "localizedName": "peanut butter",
+            "image": "peanut-butter.png"
+          },
+          {
+            "id": 19081,
+            "name": "chocolate",
+            "localizedName": "chocolate",
+            "image": "https://spoonacular.com/cdn/ingredients_100x100/milk-chocolate.jpg"
+          }
+        ],
+        "equipment": [
+          {
+            "id": 404699,
+            "name": "double boiler",
+            "localizedName": "double boiler",
+            "image": "https://spoonacular.com/cdn/equipment_100x100/double-boiler.jpg"
+          },
+          {
+            "id": 404762,
+            "name": "microwave",
+            "localizedName": "microwave",
+            "image": "https://spoonacular.com/cdn/equipment_100x100/microwave.jpg"
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "step": "Place peanuts in a wide, shallow dish.",
+        "ingredients": [
+          {
+            "id": 16091,
+            "name": "peanuts",
+            "localizedName": "peanuts",
+            "image": "peanuts.png"
+          }
+        ],
+        "equipment": []
+      },
+      {
+        "number": 3,
+        "step": "Roll 3 to 4 pieces of banana in the melted chocolate and peanut butter mixture, and stir to coat.",
+        "ingredients": [
+          {
+            "id": 16098,
+            "name": "peanut butter",
+            "localizedName": "peanut butter",
+            "image": "peanut-butter.png"
+          },
+          {
+            "id": 19081,
+            "name": "chocolate",
+            "localizedName": "chocolate",
+            "image": "https://spoonacular.com/cdn/ingredients_100x100/milk-chocolate.jpg"
+          },
+          {
+            "id": 9040,
+            "name": "banana",
+            "localizedName": "banana",
+            "image": "bananas.jpg"
+          },
+          {
+            "id": 0,
+            "name": "roll",
+            "localizedName": "roll",
+            "image": "dinner-yeast-rolls.jpg"
+          }
+        ],
+        "equipment": []
+      },
+      {
+        "number": 4,
+        "step": "Remove bananas using a fork and place in the dish containing peanuts.",
+        "ingredients": [
+          {
+            "id": 9040,
+            "name": "banana",
+            "localizedName": "banana",
+            "image": "bananas.jpg"
+          },
+          {
+            "id": 16091,
+            "name": "peanuts",
+            "localizedName": "peanuts",
+            "image": "peanuts.png"
+          }
+        ],
+        "equipment": []
+      },
+      {
+        "number": 5,
+        "step": "Roll chocolate-covered bananas in peanuts and coat as best as you can. Once well coated, place bananas on baking sheet lined with waxed paper.Repeat with remaining bananas, re-melting the chocolate mixture if needed. Once complete, place in freezer.Once frozen, store in a freezer bag or airtight container. Thaw for 8 to 10 minutes before eating, to ensure banana bites are frozen, but not rock hard.",
+        "ingredients": [
+          {
+            "id": 19081,
+            "name": "chocolate",
+            "localizedName": "chocolate",
+            "image": "https://spoonacular.com/cdn/ingredients_100x100/milk-chocolate.jpg"
+          },
+          {
+            "id": 9040,
+            "name": "banana",
+            "localizedName": "banana",
+            "image": "bananas.jpg"
+          },
+          {
+            "id": 16091,
+            "name": "peanuts",
+            "localizedName": "peanuts",
+            "image": "peanuts.png"
+          },
+          {
+            "id": 0,
+            "name": "roll",
+            "localizedName": "roll",
+            "image": "dinner-yeast-rolls.jpg"
+          }
+        ],
+        "equipment": [
+          {
+            "id": 404727,
+            "name": "baking sheet",
+            "localizedName": "baking sheet",
+            "image": "https://spoonacular.com/cdn/equipment_100x100/baking-sheet.jpg"
+          }
+        ],
+        "length": { "number": 8, "unit": "minutes" }
+      }
+    ]
+  }
+]
