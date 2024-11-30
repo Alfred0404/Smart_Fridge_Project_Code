@@ -6,6 +6,7 @@ from utils.config import *
 from utils.detection_utils import *
 from utils.video_utils import *
 from utils.yolo_utils import *
+from utils.list_update_utils import *
 
 logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.INFO)
 
@@ -44,6 +45,7 @@ def run_yolov11_detection(model: YOLO) -> None:
 
             items_detected = detect_items_in_frame(frame, model)
             process_frame(frame, items_detected)
+            update_fridge_items(items_detected)  # update fridge items list
 
             cv2.imshow("YOLOv11 Detection", items_detected[0].plot())
 
