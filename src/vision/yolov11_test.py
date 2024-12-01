@@ -1,3 +1,7 @@
+import sys
+
+sys.path.append("src/vision")
+
 import logging
 
 import cv2
@@ -54,7 +58,8 @@ def run_yolov11_detection(model: YOLO) -> None:
 
             cv2.imshow("YOLOv11 Detection", items_detected[0].plot())
 
-            if cv2.waitKey(1) & 0xFF == EXIT_KEY:
+            key = cv2.waitKey(1) & 0xFF
+            if key == EXIT_KEY or key == ord("q"):
                 break
 
     except Exception as e:

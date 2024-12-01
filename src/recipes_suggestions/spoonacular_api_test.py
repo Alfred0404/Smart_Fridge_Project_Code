@@ -22,11 +22,11 @@ def get_recipes_by_ingredients(ingredients=[], limit=5):
         print(f"Error: {response.status_code} - {response.text}")
 
     for recipe in response.json():
-        print(f"Recipe: {recipe['id']}- {recipe['title']}")
-        get_recipe_instructions_by_id(recipe["id"])
+        print(f"Recipe: {recipe['id']} - {recipe['title']}")
+        get_recipe_instructions_by_id(recipe["id"], recipe['title'])
 
 
-def get_recipe_instructions_by_id(id):
+def get_recipe_instructions_by_id(id: int, title: str):
     url = f"https://api.spoonacular.com/recipes/{id}/analyzedInstructions"
     params = {
         "apiKey": os.getenv("SPOONACULAR_API_KEY"),
@@ -38,10 +38,17 @@ def get_recipe_instructions_by_id(id):
     if response.status_code != 200:
         print(f"Error: {response.status_code} - {response.text}")
 
-    with open("src/recipes_suggestions/recipes.json", "w") as f:
-        f.write(response.text)
+    recipe_data = response.json()[0]
+    recipe_data["name"] = title
+    with open("src/recipes_suggestions/recipes.json", "r+") as f:
+        recipes_data = json.load(f)
+        recipes_data.append(recipe_data)
+        f.seek(0)
+        json.dump(recipes_data, f, indent=4)
+        f.truncate()
 
-with open("src/vision/utils/items_in_fridge.json", "r") as f:
-    food_list = json.load(f)
+if __name__ == "__main__":
+    with open("src/vision/utils/items_in_fridge.json", "r") as f:
+        food_list = json.load(f)
 
-get_recipes_by_ingredients(ingredients=food_list)
+    get_recipes_by_ingredients(ingredients=food_list)

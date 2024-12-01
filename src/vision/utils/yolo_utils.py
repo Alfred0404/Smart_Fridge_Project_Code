@@ -1,5 +1,7 @@
 import os
+
 from ultralytics import YOLO
+
 from .config import *
 
 
