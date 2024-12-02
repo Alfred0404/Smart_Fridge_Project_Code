@@ -252,6 +252,7 @@ main {
 .pagination-controls button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
+    z-index: initial;
 }
 
 /*=============== Recipes ===============*/
