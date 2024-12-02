@@ -1,12 +1,14 @@
-import requests as r
-import os
 import json
+import os
+
+import requests as r
 from dotenv import load_dotenv
 
 load_dotenv()
 
 
 def get_recipes_by_ingredients(ingredients=[], limit=5):
+    print(ingredients)
     url = "https://api.spoonacular.com/recipes/findByIngredients"
     params = {
         "apiKey": os.getenv("SPOONACULAR_API_KEY"),
@@ -21,9 +23,13 @@ def get_recipes_by_ingredients(ingredients=[], limit=5):
     if response.status_code != 200:
         print(f"Error: {response.status_code} - {response.text}")
 
+    open("src/recipes_suggestions/recipes.json", "w").close()
+    with open("src/recipes_suggestions/recipes.json", "w") as f:
+        json.dump([], f, indent=4)
+
     for recipe in response.json():
         print(f"Recipe: {recipe['id']} - {recipe['title']}")
-        get_recipe_instructions_by_id(recipe["id"], recipe['title'])
+        get_recipe_instructions_by_id(recipe["id"], recipe["title"])
 
 
 def get_recipe_instructions_by_id(id: int, title: str):
@@ -46,6 +52,7 @@ def get_recipe_instructions_by_id(id: int, title: str):
         f.seek(0)
         json.dump(recipes_data, f, indent=4)
         f.truncate()
+
 
 if __name__ == "__main__":
     with open("src/vision/utils/items_in_fridge.json", "r") as f:

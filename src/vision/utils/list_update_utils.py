@@ -1,7 +1,5 @@
 import json
 
-import cv2
-
 
 def read_json_file(file_path: str):
     with open(file_path, "r") as f:
@@ -9,7 +7,7 @@ def read_json_file(file_path: str):
     return json_object
 
 
-def update_fridge_items(frame: cv2.Mat, detections: list, center_history: list) -> None:
+def update_fridge_items(detections: list) -> None:
     """
     Update the contents of the fridge based on the unique detections.
     Args:

@@ -52,7 +52,7 @@ def run_yolov11_detection(model: YOLO) -> None:
             print("updating fridge items...")
 
             try:
-                update_fridge_items(frame, items_detected, center_history)
+                update_fridge_items(items_detected)
             except json.JSONDecodeError as e:
                 print(f"[run_yolov11_detection]\tError: {e}")
 
