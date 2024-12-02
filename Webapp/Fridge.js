@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextPageButton = document.getElementById('next-page');
 
     const jsonFilePath = '../src/vision/utils/items_in_fridge.json';
-    const ITEMS_PER_TABLE = 10;
+    const ITEMS_PER_TABLE = 6;
 
     let fridgeData = [];
     let currentPage = 1;
