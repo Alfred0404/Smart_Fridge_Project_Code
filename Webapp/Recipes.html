@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="Accueil.css">
+    <title>sidebar menu</title>
+</head>
+<body>
+<nav class="nav">
+    <ul class="nav_list">
+        <a href="Accueil.html" class="nav_link">
+            <i class="ri-home-4-line"></i>
+            <span class="nav_name">Home</span>
+        </a>
+
+        <a href="Fridge.html" class="nav_link">
+            <i class="ri-fridge-line"></i>
+            <span class="nav_name">Fridge</span>
+        </a>
+
+        <a href="Recipes.html" class="nav_link active-link">
+            <i class="ri-file-list-3-line"></i>
+            <span class="nav_name">Recipe</span>
+        </a>
+    </ul>
+    <div class="nav_circle1"></div>
+    <div class="nav_circle2"></div>
+
+    <div class="nav_square1"></div>
+    <div class="nav_square2"></div>
+</nav>
+<section class="layer-container">
+    <div class="layer2"></div>
+    <div class="layer1"></div>
+    <h1 class="title">Smart Fridge</h1>
+    <section class="recipe-section">
+        <h2>List of Recipes</h2>
+        <table class="recipe-table">
+            <thead>
+            <tr>
+                <th>Recipe Name</th>
+                <th>See the steps</th>
+            </tr>
+            </thead>
+            <tbody id="recipe-list">
+            </tbody>
+        </table>
+    </section>
+</section>
+
+<script src="recipes.js"></script>
+</body>
+</html>

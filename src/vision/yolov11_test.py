@@ -1,34 +1,18 @@
+import sys
+
+sys.path.append("src/vision")
+
 import logging
-import os
 
 import cv2
-import torch
 from ultralytics import YOLO
+from utils.config import *
 from utils.detection_utils import *
 from utils.video_utils import *
+from utils.yolo_utils import *
+from utils.list_update_utils import *
 
-logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
-
-# CONSTANTS
-WORKING_DIR = os.getcwd()
-CONFIDENCE = 0.4
-EXIT_KEY = ord("q")
-
-
-def train_model(model: YOLO, dataset_path: str, epochs: int) -> YOLO:
-    """
-    Train a YOLO model.
-
-    @return: YOLO model
-    """
-    model.train(
-        data=dataset_path,
-        epochs=epochs,
-        batch=8,
-        imgsz=640,
-        device=0,
-    )
-    return model
+logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.INFO)
 
 
 def detect_items_in_frame(frame: cv2.Mat, model: YOLO) -> list:
@@ -42,8 +26,8 @@ def detect_items_in_frame(frame: cv2.Mat, model: YOLO) -> list:
     Returns:
         list: A list of Results objects containing the detected items.
     """
-    results = model.track(source=frame, conf=CONFIDENCE, show=False)
-    return results
+    items_detected = model.track(source=frame, conf=CONFIDENCE, show=False)
+    return items_detected
 
 
 def run_yolov11_detection(model: YOLO) -> None:
@@ -63,12 +47,19 @@ def run_yolov11_detection(model: YOLO) -> None:
         while video_capture.isOpened():
             frame = capture_frame(video_capture)
 
-            results = detect_items_in_frame(frame, model)
-            process_frame(frame, results)
+            items_detected = detect_items_in_frame(frame, model)
+            center_history = process_frame(frame, items_detected)
+            print("updating fridge items...")
 
-            cv2.imshow("YOLOv11 Detection", results[0].plot())
+            try:
+                update_fridge_items(items_detected)
+            except json.JSONDecodeError as e:
+                print(f"[run_yolov11_detection]\tError: {e}")
 
-            if cv2.waitKey(1) & 0xFF == EXIT_KEY:
+            cv2.imshow("YOLOv11 Detection", items_detected[0].plot())
+
+            key = cv2.waitKey(1) & 0xFF
+            if key == EXIT_KEY or key == ord("q"):
                 break
 
     except Exception as e:
@@ -79,9 +70,14 @@ def run_yolov11_detection(model: YOLO) -> None:
 
 
 if __name__ == "__main__":
-    yolo_model_path = os.path.join(WORKING_DIR, "src", "vision", "models", "yolo11n.pt")
-    yolo_dataset_path = os.path.join(WORKING_DIR, "src", "vision", "dataset", "data.yaml")
-    model = YOLO(yolo_model_path)
-    model = train_model(model, yolo_dataset_path, 100)
-
+    model = get_model()
     run_yolov11_detection(model)
+
+
+"""
+items to train the model on:
+- milk
+- vegetables (tomatoes, epinards, carrots, onions, lettuce, etc.)
+- sauces (mayonnaise, bbq, etc.)
+- sausages
+"""

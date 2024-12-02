@@ -1,3 +1,4 @@
+from collections import deque
 import cv2
 
 
@@ -7,11 +8,8 @@ def calculate_center_of_box(x1: int, y1: int, x2: int, y2: int) -> tuple[float, 
     return (x_center, y_center)
 
 
-def is_object_moving_downward(
-    pos_1: tuple[int, int], pos_2: tuple[int, int], frame: cv2.Mat
-) -> bool:
-    vertical_middle: int = frame.shape[0] // 2
-    return True if pos_1[1] > vertical_middle and pos_2[1] < vertical_middle else False
+def is_object_moving_downward(positions: list[tuple[float, float]]) -> bool:
+    return positions[0][1] < positions[1][1]
 
 
 def show_center_of_object(frame: cv2.Mat, center: tuple[float, float]) -> None:
@@ -56,9 +54,17 @@ def process_frame(frame: cv2.Mat, results: list) -> None:
         frame (cv2.Mat): The frame to process.
         results (list): The results of the YOLOv11 detection.
     """
+
+    center_history = deque(maxlen=10)
+
     for result in results:
         for box in result.boxes:
             center = calculate_center_of_box(*box.xyxy[0])
+            center_history.append(center)
             show_center_of_object(frame, center)
 
+
+    print(center_history)
+
     show_horizontal_middle_line(frame)
+    return center_history
