@@ -1,0 +1,365 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+:root {
+    /*========== Colors ==========*/
+    --first-color: hsl(248, 80%, 18%);
+    --black-color: hsl(248, 24%, 10%);
+    --white-color: #fff;
+    --body-color: hsl(248, 100%, 99%);
+    /*========== Font and typography ==========*/
+    --body-font: "Poppins", sans-serif;
+    --small-font-size: .813rem;
+}
+@media screen and (min-width: 1024px) {
+    :root {
+        --small-font-size: .875rem;
+    }
+}
+
+/*=============== BASE ===============*/
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: var(--body-font);
+    background-color: var(--body-color);
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+main {
+    margin-inline: 6rem 1rem;
+    padding-block: 2rem;
+}
+
+/*=============== SIDEBAR ===============*/
+.nav {
+    width: 72px;
+    height: max-content;
+    position: fixed;
+    inset: 0;
+    margin: auto 0;
+    z-index: 4;
+}
+.nav_list {
+    position: relative;
+    background-color: var(--first-color);
+    padding-block: 50px;
+    border-radius: 0 51px 51px 0;
+    display: grid;
+    justify-content: center;
+    row-gap: 2rem;
+}
+.nav_link {
+    position: relative;
+    display: inline-flex;
+    padding: 4px;
+    border-radius: 50%;
+    transition: background 0.4s;
+}
+.nav_link i {
+    font-size: 1.25rem;
+    color: var(--white-color);
+    transition: color 0.4s;
+}
+.nav_link:hover .nav_name {
+    opacity: 1;
+    transform: translateX(48px);
+}
+.nav_name {
+    position: absolute;
+    top: 0;
+    transform: translateX(56px);
+    background-color: var(--black-color);
+    color: var(--white-color);
+    font-size: var(--small-font-size);
+    font-weight: 500;
+    padding: 6px 16px;
+    border-radius: 3rem;
+    pointer-events: none;
+    transition: transform 0.5s, opacity 0.5s;
+    opacity: 0;
+}
+
+.nav_circle1 {
+    top: -78px;
+}
+.nav_circle2 {
+    bottom: -78px;
+}
+.nav_square1 {
+    top: -39px;
+}
+.nav_square2 {
+    bottom: -39px;
+}
+
+.active-link {
+    background-color: var(--white-color);
+}
+.active-link i {
+    color: var(--first-color);
+}
+
+.layer-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+
+.layer2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 130vh;
+    background-image: url('./images/layered-waves-haikei2.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: 1;
+}
+
+.layer1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('./images/layered-waves-haikei.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+
+.title {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 2;
+}
+
+.project-description {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.project-description h2 {
+    color: #522ae3;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.project-description p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+/*=============== Fridge ===============*/
+
+.ingredients-table {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.ingredients-table th {
+    background-color: #522ae3;
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid #ddd;
+    text-transform: uppercase;
+    border-radius: 10px 10px 0 0;
+}
+
+
+.ingredients-table td {
+    background-color: #fff;
+    padding: 12px 16px;
+    border-bottom: 1px solid #ddd;
+    color: #522ae3;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    border-radius: 0 0 10px 10px;
+}
+
+
+.ingredients-table td:hover {
+    background-color: #e0f7ff;
+    cursor: pointer;
+}
+
+
+.pagination-controls {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination-controls button {
+    padding: 12px 24px;
+    margin: 5px;
+    border: none;
+    background-color: #522ae3;
+    color: white;
+    cursor: pointer;
+    border-radius: 30px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+
+.pagination-controls button:hover {
+    background-color: #8b72e8;
+    transform: scale(1.05);
+}
+
+
+.pagination-controls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/*=============== Recipes ===============*/
+
+.recipe-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    padding: 20px;
+    z-index: 1;
+}
+
+.recipe-table {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.recipe-table th, .recipe-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.recipe-table th {
+    background-color: #522ae3;
+    color: white;
+}
+
+.recipe-table td {
+    background-color: white;
+    color: #522ae3;
+}
+
+.recipe-table td button {
+    background-color: #522ae3;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.recipe-table td button:hover {
+    background-color: #8b72e8;
+}
+
+/*=============== Recipes Detail ===============*/
+
+.recipe-detail-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    padding: 10px;
+    z-index: 1;
+    text-align: center;
+}
+
+#recipe-detail {
+    text-align: left;
+    max-width: 800px;
+    width: 100%;
+}
+
+.step {
+    margin-bottom: 15px;
+    padding: 7px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 0.7rem;
+    color: #522ae3;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.step-number {
+    font-weight: bold;
+    color: #522ae3;
+}
+
+#backButton {
+    background-color: #522ae3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+#backButton:hover {
+    background-color: #8b72e8;
+}
+
+
+h2 {
+    color: #522ae3;
+}
+
+h3 {
+    color: #522ae3;
+}
